@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col col-sm-6 pull-right">
+        <div class="panel list">
+            <h2 class="text-center color1d2939 border-bottom">اخبار استان </h2>
+            {% for i in list_news %}
+            <a href="news/show/{{ i['id'] }}">
+                <h4>{{ i['title'] }}</h4>
+            </a>
+            <span class="pull-left">{{ i['date'] }}</span>
+            <div class="clearfix"></div>
+            <img src="{{ i['image'] }}" class="img-responsive pull-right">
+            <p>{{ i['summary'] }}</p>
+            {{ i['source_name'] }}
+            <br><br>
+            <a href="news/show/{{ i['id'] }}">
+                <button class="btn btn-default pull-left">بیشتر</button>
+            </a>
+            <div class="clearfix"></div>
+            <hr>
+            {% end for %}
+        </div>
+    </div>
+    <div class="col col-sm-6 pull-right">
+        <div class="panel list">
+            <h2 class="text-center color1d2939 border-bottom">اخبار ایران</h2>
+            {% for i in list_states %}
+            <a href="news/show/{{ i['id'] }}">
+                <h4>{{ i['title'] }}</h4>
+            </a>
+            <span class="pull-left">{{ i['date'] }}</span>
+            <div class="clearfix"></div>
+            <img src="{{ i['image'] }}" class="img-responsive pull-right">
+            <p>{{ i['summary'] }}</p>
+            {{ i['source_name'] }}
+            <br><br>
+            <a href="news/show/{{ i['id'] }}">
+                <button class="btn btn-default pull-left">بیشتر</button>
+            </a>
+            <div class="clearfix"></div>
+            <hr>
+            {% end for %}
+        </div>
+    </div>
+</div>
+{% end block content %}

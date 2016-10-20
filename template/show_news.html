@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col col-sm-12 pull-right">
+        <div class="panel clearfix">
+{#            <h2>{{ news_data['res']['title'] }}</h2>#}
+            <h3>{{ news_data['res']['subtitle'] }}</h3>
+            <span>{{ news_data['res']['date'] }}</span>
+            <span>{{ news_data['res']['time'] }}</span>
+            <div class="margin-bottom-10">
+                <img src="{{ news_data['res']['image'] }}" class="img-responsive">
+            </div>
+            <p>{{ news_data['res']['body'] }}</p>
+            <span class="pull-left">
+                {{ news_data['res']['source_name'] }}
+            </span>
+        </div>
+    </div>
+</div>
+{% end block content %}
