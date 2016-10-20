@@ -88,6 +88,12 @@ h3.highlight  {
     border:0;
   	border-radius:0;
 }
+.navbar-nav:first-child{
+	float: right;!important;
+}
+.navbar-nav:last-child{
+	float: left;!important;
+}
 .navbar-nav > li{
 	float: right;!important;
 }

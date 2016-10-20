@@ -5,25 +5,43 @@ import json
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        states = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=0,page=1')
-        # print(states.text)
-        list_states = []
-        states = json.loads(states.text)
-        if states['err'] == 0:
-            list_states = states['res']
-
-        if args[0] is not None:
-            state_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item={0},page=1'.format(args[0]))
+        if args[1] is None:
+            subject_id = 0
+            iran_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=0,page=1')
         else:
-            state_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=17,page=1')
-            # news default for tehran
-        # print(state_news.text)
-        state_news = json.loads(state_news.text)
-        list_news = []
-        if state_news['err'] == 0:
-            list_news = state_news['res']
+            subject_id = args[1]
+            iran_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item={0},page=1'.format(args[1]))
+        iran_news = json.loads(iran_news.text)
+        list_iran_news = []
+        if iran_news['err'] == 0:
+            list_iran_news = iran_news['res']
 
-        self.render("home.html", list_states=list_states, list_news=list_news)
+        city = requests.get('http://www.servicefarsi.com/api/news/4443819560110/2/')
+        list_city = []
+        city = json.loads(city.text)
+        if city['err'] == 0:
+            list_city = city['res']
+
+        subject = requests.get('http://www.servicefarsi.com/api/news/4443819560110/1/')
+        list_subject = []
+        subject = json.loads(subject.text)
+        if subject['err'] == 0:
+            list_subject = subject['res']
+
+        if args[0] is None:
+            city_id = '17'
+            city_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=17,page=1')
+        else:
+            city_id = str(args[0])
+            city_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item={0},page=1'.format(args[0]))
+        # news default for tehran
+
+        city_news = json.loads(city_news.text)
+        list_city_news = []
+        if city_news['err'] == 0:
+            list_city_news = city_news['res']
+        print(city_id)
+        self.render("home.html", list_states=list_iran_news, list_news=list_city_news, list_city=list_city, list_subject=list_subject, city_id=city_id, subject_id = subject_id)
 
     def post(self, *args, **kwargs):
         pass

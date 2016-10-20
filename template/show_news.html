@@ -11,7 +11,7 @@
             <div class="margin-bottom-10">
                 <img src="{{ news_data['res']['image'] }}" class="img-responsive">
             </div>
-            <p>{{ news_data['res']['body'] }}</p>
+            <p>{% raw news_data['res']['body'] %}</p>
             <span class="pull-left">
                 {{ news_data['res']['source_name'] }}
             </span>
