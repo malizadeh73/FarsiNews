@@ -1,7 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import tornado.web
 import requests
 import json
-
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
@@ -40,7 +41,6 @@ class HomeHandler(tornado.web.RequestHandler):
         list_city_news = []
         if city_news['err'] == 0:
             list_city_news = city_news['res']
-        print(city_id)
         self.render("home.html", list_states=list_iran_news, list_news=list_city_news, list_city=list_city, list_subject=list_subject, city_id=city_id, subject_id = subject_id)
 
     def post(self, *args, **kwargs):
@@ -50,7 +50,6 @@ class HomeHandler(tornado.web.RequestHandler):
 class ShowMessage(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         news_data = requests.get('http://www.servicefarsi.com/api/news/4443819560110/7/item={0}'.format(args[0]))
-        print(news_data.text)
         news_data = json.loads(news_data.text)
         if news_data['err'] == 1:
             news_data = {}  # when api return error
