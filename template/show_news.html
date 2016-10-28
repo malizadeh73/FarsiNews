@@ -13,7 +13,7 @@
             </div>
             <p>{% raw news_data['res']['body'] %}</p>
             <span class="pull-left">
-                {{ news_data['res']['source_name'] }}
+                <span>منبع : </span><a href="{{ news_data['res']['source_link'] }}">{{ news_data['res']['source_name'] }}</a>
             </span>
         </div>
     </div>

@@ -4,11 +4,12 @@ import tornado.web
 import requests
 import json
 
+
 class HomeHandler(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
         if args[1] is None:
-            subject_id = 0
-            iran_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=0,page=1')
+            subject_id = '4'
+            iran_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item=4,page=1')
         else:
             subject_id = args[1]
             iran_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item={0},page=1'.format(args[1]))
@@ -35,13 +36,12 @@ class HomeHandler(tornado.web.RequestHandler):
         else:
             city_id = str(args[0])
             city_news = requests.get('http://www.servicefarsi.com/api/news/4443819560110/4/item={0},page=1'.format(args[0]))
-        # news default for tehran
 
         city_news = json.loads(city_news.text)
         list_city_news = []
         if city_news['err'] == 0:
             list_city_news = city_news['res']
-        self.render("home.html", list_states=list_iran_news, list_news=list_city_news, list_city=list_city, list_subject=list_subject, city_id=city_id, subject_id = subject_id)
+        self.render("home.html", list_states=list_iran_news, list_news=list_city_news, list_city=list_city, list_subject=list_subject, city_id=city_id, subject_id=subject_id)
 
     def post(self, *args, **kwargs):
         pass
@@ -49,10 +49,8 @@ class HomeHandler(tornado.web.RequestHandler):
 
 class ShowMessage(tornado.web.RequestHandler):
     def get(self, *args, **kwargs):
-        news_data = requests.get('http://www.servicefarsi.com/api/news/4443819560110/7/item={0}'.format(args[0]))
+        news_data = requests.get('http://www.servicefarsi.com/api/news/4443819560110/7/item={0}'.format(args[2]))
         news_data = json.loads(news_data.text)
-        if news_data['err'] == 1:
-            news_data = {}  # when api return error
         self.render("show_news.html", news_data=news_data)
 
     def post(self, *args, **kwargs):
